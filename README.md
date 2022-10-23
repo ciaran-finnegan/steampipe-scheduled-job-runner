@@ -83,10 +83,31 @@ e.g.
 
 Modify steampipe_daily/main.sh and configure your git username, email and repository, configure the steampipe plugins you require, each plugin will have a corresponding AWS Systems Manager Parameter Store SecureString which will be accessed as an environment variable
 
-## Adding secrets as AWS Systems Manager Parameter Store SecureString parameters
+## Adding secrets to the AWS Systems Manager Parameter Store as SecureString parameters
 
-Sample steampipe configuration files are shown below;
+Follow the instructions [here](https://aws.github.io/copilot-cli/docs/commands/secret-init/).
 
+```
+copilot secret init
+```
+
+e.g. to create a Project Access Token for your Git repository
+Secret name:  GITHUB_PROJECT_ACCESS_TOKEN
+Test secret value: some-token
+Environment test is already on the latest version v1.9.0, skip upgrade.
+...Put secret baselinecreds to environment test
+✔ Successfully put secret baselinecreds in environment test as /copilot/my-job-runner/test/secrets/baselinecreds.
+You can refer to these secrets from your manifest file by editing the `secrets` section.
+`secrets:
+    baselinecreds: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/baselinecreds`
+
+Note, adding multiline steampipe configuration files via the copilot secret init command is problematic. It may be simpler to paste these into the AWS web console or use an alternative method.
+
+### Adding Steampipe plugin configuration files AWS Systems Manager Parameter Store SecureString parameters
+
+Sample steampipe plugin configuration files are shown below;
+
+```
 STEAMPIPE_PLUGIN_CONFIG_OKTA='connection "okta" {\n
   plugin = "okta"\n
   domain = "https://my-domain.okta.com"\n
@@ -119,30 +140,9 @@ STEAMPIPE_PLUGIN_CONFIG_CSV='connection "csv" {\n
   plugin = "csv"\n
   paths = ["/workspace/file.csv"]\n
 }\n
-'
-
-Follow the instructions [here](https://aws.github.io/copilot-cli/docs/commands/secret-init/).
-
-```
-copilot secret init
 ```
 
-e.g. to create a Project Access Token for your Git repository
-Secret name:  GITHUB_PROJECT_ACCESS_TOKEN
-Test secret value: some-token
-Environment test is already on the latest version v1.9.0, skip upgrade.
-...Put secret baselinecreds to environment test
-✔ Successfully put secret baselinecreds in environment test as /copilot/my-job-runner/test/secrets/baselinecreds.
-You can refer to these secrets from your manifest file by editing the `secrets` section.
-`secrets:
-    baselinecreds: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/baselinecreds`
-
-Note, adding multiline steampipe configuration files via the copilot secret init command is problematic. It may be simpler to paste these into the AWS web console or use an alternative method.
-
-### Adding your Steampipe Plugin configuration files to AWS Systems Manager Parameter Store
-
-
-### Adding Cloudformation to configure S3 bucket
+### Adding CoPilot Addon to configure S3 bucket
 
 A Cloudformation stack is defined in the steampipe_daily/addons/scheduled-job-reports.yml file to provision an S3 bucket to write output files to and appropriate permissions.
 
