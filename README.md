@@ -113,14 +113,18 @@ STEAMPIPE_PLUGIN_CONFIG_OKTA='connection "okta" {\n
   domain = "https://my-domain.okta.com"\n
   token = "token"\n
 }\n
-'
+```
+
+```
 STEAMPIPE_PLUGIN_CONFIG_CROWDSTRIKE='connection "crowdstrike" {\n
   plugin  = "crowdstrike"\n
   client_id = "id"\n
   client_secret = "secret"\n
   client_cloud = "us-2"\n
 }\n
-'
+```
+
+```
 STEAMPIPE_PLUGIN_CONFIG_SALESFORCE='connection "salesforce" {\n
   plugin = "salesforce"\n
   url = "https://domain.my.salesforce.com/"\n
@@ -129,13 +133,17 @@ STEAMPIPE_PLUGIN_CONFIG_SALESFORCE='connection "salesforce" {\n
   token = "token"\n
   client_id = "id"\n
 }\n
-'
+```
+
+```
 STEAMPIPE_PLUGIN_CONFIG_NET='connection "net" {\n
   plugin = "net"\n
   timeout = 2000\n
   dns_server = "1.1.1.1:53"\n
 }\n
-'
+```
+
+```
 STEAMPIPE_PLUGIN_CONFIG_CSV='connection "csv" {\n
   plugin = "csv"\n
   paths = ["/workspace/file.csv"]\n
